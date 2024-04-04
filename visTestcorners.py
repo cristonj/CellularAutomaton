@@ -73,7 +73,7 @@ arrayValues = np.array([
 
 
 while True: #Loop
-    plt.imshow(arrayValues, cmap='cool', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=90))
+    plt.imshow(arrayValues, cmap='cool', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=10))
     plt.show(block=False)
     newArrayValues = np.array(arrayValues)
     rownum = 0
