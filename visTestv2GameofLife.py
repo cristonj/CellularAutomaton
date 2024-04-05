@@ -2,31 +2,43 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import time
-size = 256
+from mayavi import mlab
+
+
+size = 128
+generations = 500
 arrayValues = np.zeros((size, size), dtype=int)
 
+
 #Flying Machine
-#arrayValues[1][4]=1
-#arrayValues[2][2]=1
-#arrayValues[2][4]=1
-#arrayValues[3][4]=1
-#arrayValues[3][3]=1
+#arrayValues[1+int(size/4)][4+int(size/4)]=1
+#arrayValues[2+int(size/4)][2+int(size/4)]=1
+#arrayValues[2+int(size/4)][4+int(size/4)]=1
+#arrayValues[3+int(size/4)][4+int(size/4)]=1
+#arrayValues[3+int(size/4)][3+int(size/4)]=1
 
 #Weird fractal type shape
-arrayValues[int(size/2)+1][int(size/2)+0]=1
-arrayValues[int(size/2)-1][int(size/2)+0]=1
-arrayValues[int(size/2)][int(size/2)+0]=1
-arrayValues[int(size/2)][int(size/2)+1]=1
-arrayValues[int(size/2)][int(size/2)+2]=1
-arrayValues[int(size/2)][int(size/2)+3]=1
-arrayValues[int(size/2)][int(size/2)+4]=1
-arrayValues[int(size/2)][int(size/2)+5]=1
-arrayValues[int(size/2)][int(size/2)+6]=1
+#arrayValues[int(size/2)+1][int(size/2)+0]=1
+#arrayValues[int(size/2)-1][int(size/2)+0]=1
+#arrayValues[int(size/2)][int(size/2)+0]=1
+#arrayValues[int(size/2)][int(size/2)+1]=1
+#arrayValues[int(size/2)][int(size/2)+2]=1
+#arrayValues[int(size/2)][int(size/2)+3]=1
+#arrayValues[int(size/2)][int(size/2)+4]=1
+#arrayValues[int(size/2)][int(size/2)+5]=1
+#arrayValues[int(size/2)][int(size/2)+6]=1
 #Add this to the above for a different pattern
 #arrayValues[int(size/2)][int(size/2)+7]=1
 #arrayValues[int(size/2)][int(size/2)+8]=1
 #arrayValues[int(size/2)][int(size/2)+9]=1
 #arrayValues[int(size/2)][int(size/2)+10]=1
+
+arrayValues[int(size/2)+1][int(size/2)] = 1
+arrayValues[int(size/2)][int(size/2)+1] = 1
+arrayValues[int(size/2)][int(size/2)+2] = 1
+arrayValues[int(size/2)+1][int(size/2)+1] = 1
+arrayValues[int(size/2)+2][int(size/2)+1] = 1
+
 
 arrayValues = np.array(arrayValues)
 
@@ -112,7 +124,6 @@ def applyrules(cellVal, rownum, colnum, frame, curArrayValues, size):
         cellBelowLeft = cellVal
 
 
-    #If any are greater than the current cell, increase current cell temp by one.
     if cellVal == 1:
         if (neighborcount == 0) or (neighborcount == 1) or (neighborcount>=4):
             cellVal = 0
@@ -133,24 +144,47 @@ def applyrules(cellVal, rownum, colnum, frame, curArrayValues, size):
 
 
 frame = 0
-def nextframe(frame, arrayValues, size): #Loop
-    frame = frame+1
+def nextframe(frame, arrayValues, size, countPlot): #Loop
     plt.imshow(arrayValues, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=1))
     plt.show(block=False)
+    #plt.savefig(f'./out/frame-{str(frame)}.png') #Record frames into file
     newArrayValues = np.array(arrayValues)
     rownum = 0
     for row in arrayValues:
         colnum = 0
         for i in row:
             newArrayValues[rownum][colnum] = applyrules(i, rownum, colnum, frame, arrayValues, size)
+            
+            countPlot[rownum][colnum] += newArrayValues[rownum][colnum]
             colnum += 1
         rownum += 1
     arrayValues = np.array(newArrayValues)
     plt.pause(0.01)
-    return arrayValues
+    return countPlot, arrayValues
 
-while True:
-    arrayValues = nextframe(frame, arrayValues, size)
+
+#for the count at the bottom
+countPlot = np.zeros((size, size), dtype=int)
+
+#3d array
+threeDArray = np.empty((generations, size, size), dtype=object)
+
+while frame<generations:
+    threeDArray[frame] = arrayValues
+    frame = frame+1
+    countPlot, arrayValues = nextframe(frame, arrayValues, size, countPlot)
+
+    #Weird idea I had for plotting smth about the values
+
+    
+    plt.imshow(countPlot, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=100))
+    plt.savefig(f'./out/heatmap-3frames/heatmap-{str(frame)}.png') #Record into file
+    print(frame)
+
+#mlab.contour3d(threeDArray.astype(np.int32)) # a window would pop up
+#mlab.savefig('./out/3dmodel.obj')
+#mlab.clf()
+
 
 
 
