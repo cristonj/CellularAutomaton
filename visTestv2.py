@@ -2,12 +2,11 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import time
+import random
+
 size = 128
 arrayValues = np.zeros((size, size), dtype=int)
 
-
-arrayValues[0][0]=100
-arrayValues[size-1][size-1]=100
 arrayValues[int(size/2)][int(size/2)]=100
 
 
@@ -50,8 +49,9 @@ def applyrules(cellVal, rownum, colnum, frame, curArrayValues, size):
 
     #If any are greater than the current cell, increase current cell temp by one.
     if (cellAbove>cellVal) or (cellBelow>cellVal) or (cellRight>cellVal) or (cellLeft>cellVal):
-        cellVal = cellVal + 1
-    
+        cellVal = int(rownum*(colnum-frame**random.randint(1, 3)))
+
+    cellVal = cellVal//1+cellAbove
 
 
 
@@ -62,8 +62,7 @@ def applyrules(cellVal, rownum, colnum, frame, curArrayValues, size):
 
 frame = 0
 def nextframe(frame, arrayValues, size): #Loop
-    frame = frame+1
-    plt.imshow(arrayValues, cmap='cool', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=90))
+    plt.imshow(arrayValues, cmap='cool', interpolation='none', norm='log')
     plt.show(block=False)
     newArrayValues = np.array(arrayValues)
     rownum = 0
@@ -78,6 +77,7 @@ def nextframe(frame, arrayValues, size): #Loop
     return arrayValues
 
 while True:
+    frame = frame+1
     arrayValues = nextframe(frame, arrayValues, size)
 
 
