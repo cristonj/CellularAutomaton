@@ -4,9 +4,10 @@ import numpy as np
 import time
 from mayavi import mlab
 import random
+import seaborn as sns
 
 
-size = 5
+size = 32
 generations = 500
 arrayValues = np.zeros((size, size), dtype=int)
 
@@ -84,8 +85,6 @@ def applyrules(cellVal, rownum, colnum, frame, curArrayValues, size):
     try:
         if (colnum+1)!=size and (rownum+1)!=size:
             cellUpRight = int(curArrayValues[rownum+1][colnum+1])
-            if cellUpRight == 1:
-                neighborcount+=1
             neighbors.append(cellUpRight)
         else:
             neighbors.append(0)
