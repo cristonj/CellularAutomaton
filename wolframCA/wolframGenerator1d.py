@@ -1,12 +1,18 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
+import random
 
-width = 15360
-height = 15360
+
+width = 1024
+height = 1024
 
 gen1 = np.zeros(width)
-gen1[int(width/2)+1] = 1 #Set middle cell to 1
+indexVal = 0
+choices = [0,1]
+for i in gen1:
+    gen1[indexVal] = random.choice(choices)
+    indexVal+=1
 
 def createRule(ruleList):
     ruleDict = { 
@@ -42,8 +48,8 @@ def getNextGen(currentGenArray, mainDict):
 
 #mainDict = createRule([0,0,0,1,1,1,1,0]) #Rule 30
 #mainDict = createRule([0,1,0,1,1,0,1,0]) #Rule 90
-#mainDict = createRule([0,1,0,0,1,0,0,1]) #Rule 73
-mainDict = createRule([0,0,1,0,1,1,0,1]) #Rule 45
+mainDict = createRule([0,1,0,0,1,0,0,1]) #Rule 73
+#mainDict = createRule([0,0,1,0,1,1,0,1]) #Rule 45
 
 
 mainArray = np.zeros((height,width))
@@ -55,8 +61,10 @@ for generation in range(height):
     currentGenArray = getNextGen(currentGenArray, mainDict)
     if generation%500==0:
         print(f'{generation}/{height}')
+
+
 print("Trying imshow...")
 plt.imshow(mainArray, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=1))
 print("Complete. Trying savefig...")
-plt.savefig('./wolframOut/rule45highdpi.png', dpi=5000, bbox_inches="tight")
+plt.savefig('./wolframOut/randomInitRule73.png', dpi=3000, bbox_inches="tight")
 print("Complete.")
