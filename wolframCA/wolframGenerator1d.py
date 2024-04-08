@@ -4,8 +4,8 @@ import numpy as np
 import random
 
 
-width = 1024
-height = 1024
+width = 15360
+height = 15360
 
 gen1 = np.zeros(width)
 indexVal = 0
@@ -48,8 +48,9 @@ def getNextGen(currentGenArray, mainDict):
 
 #mainDict = createRule([0,0,0,1,1,1,1,0]) #Rule 30
 #mainDict = createRule([0,1,0,1,1,0,1,0]) #Rule 90
-mainDict = createRule([0,1,0,0,1,0,0,1]) #Rule 73
+#mainDict = createRule([0,1,0,0,1,0,0,1]) #Rule 73
 #mainDict = createRule([0,0,1,0,1,1,0,1]) #Rule 45
+mainDict = createRule([1,0,1,0,0,1,1,0]) #Rule 166
 
 
 mainArray = np.zeros((height,width))
@@ -66,5 +67,5 @@ for generation in range(height):
 print("Trying imshow...")
 plt.imshow(mainArray, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=1))
 print("Complete. Trying savefig...")
-plt.savefig('./wolframOut/randomInitRule73.png', dpi=3000, bbox_inches="tight")
+plt.savefig('./wolframOut/16khighDPIrandomInitRule166.png', dpi=5000, bbox_inches="tight")
 print("Complete.")
