@@ -86,7 +86,12 @@ def getNextGen(currentGenArray, mainDict):
 #rules = createRule([1,1,1,1,1,0,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,0,0,0,0,0]) #Rule 4,206,900,000
 #rules = createRule([0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,1,0,1,1,1,1,0,0,0]) #Rule 133,823,864
 #rules = createRule([1,1,0,1,0,0,0,1,0,1,1,1,0,0,1,0,1,0,0,0,1,0,1,1,0,1,1,0,0,1,1,0]) #Rule 3,513,944,934
-rules = createRule([1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]) #Rule 2,863,311,530
+#rules = createRule([1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]) #Rule 2,863,311,530
+#rules = createRule([0,1,1,1,0,0,1,1,0,1,0,0,1,1,0,0,0,0,0,0,1,1,0,1,0,0,0,1,0,1,1,1])  # Ted Rule
+rules = createRule([0,1,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,1,1,1])
+
+
+
 
 
 mainArray = np.zeros((height,width))
@@ -102,5 +107,5 @@ for generation in range(height):
 print("Trying imshow...")
 plt.imshow(mainArray, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=1))
 print("Complete. Trying savefig...")
-plt.savefig('./wolframOut/backandforth5bit.png', dpi=5000, bbox_inches="tight")
+plt.savefig('./wolframOut/ted25bit.png', dpi=3000, bbox_inches="tight")
 print("Complete.")
