@@ -67,7 +67,4 @@ def createRule(states, cells, rule=[]):
 
 
 
-ruleDict, rule = createRule(5,8)#Could be used for creating a random rule which takes in an array of 8 neighbors each belonging to 5 possible states, and outputs an int next value of 5 possible states
-
-
-print(ruleDict)
+#ruleDict, rule = createRule(5,8)#Could be used for creating a random rule which takes in an array of 8 neighbors each belonging to 5 possible states, and outputs an int next value of 5 possible states
