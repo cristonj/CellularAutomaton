@@ -9,9 +9,11 @@ width = 500
 height = 500
 
 gen1 = np.zeros(width)
+
 gen1[int(width/2)]=1
+
 indexVal = 0
-choices = [0,1,2,3]
+choices = [0,1,2,3,4]
 #for i in gen1:
 #    gen1[indexVal] = random.choice(choices)
 #    indexVal+=1
@@ -59,7 +61,7 @@ while True:
     print('Getting rule....')
     rulelist = []
     rulelist.append(random.choice(choices))
-    rules, rule = createRule(4, 3, rulelist)
+    rules, rule = createRule(5, 3, rulelist)
     print('Done....')
     filecount+=1
     mainArray = np.zeros((height,width))
@@ -73,8 +75,11 @@ while True:
 
 
     print("Trying imshow...")
-    plt.imshow(mainArray, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=3))
+    plt.imshow(mainArray, cmap='Spectral', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=4))
     print("Complete. Trying savefig...")
-    plt.savefig(f'./wolframOut/auto/4tone{filecount}.png', dpi=1000, bbox_inches="tight")
+    plt.savefig(f'./wolframOut/auto6/samples/5tone{filecount}.png', dpi=500, bbox_inches="tight")
+    with open(f'./wolframOut/auto6/rules/{filecount}.txt', 'w') as file:
+        file.write(str(rule))
+        file.close()
     print("Complete.")
 
