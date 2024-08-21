@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import time
-from mayavi import mlab
 import random
 import seaborn as sns
 
