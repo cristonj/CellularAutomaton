@@ -4,12 +4,17 @@ import numpy as np
 import time
 import random
 import seaborn as sns
+import argparse
 
+parser = argparse.ArgumentParser()
+parser.add_argument("-s", "--size", type=int, default=32)
+parser.add_argument("-g", "--generations", type=int, default=500)
 
-size = 32
-generations = 500
+args = parser.parse_args()
+size = args.size
+generations = args.generations
+
 arrayValues = np.zeros((size, size), dtype=int)
-
 
 #Flying Machine
 #arrayValues[1+int(size/4)][4+int(size/4)]=1
@@ -167,7 +172,7 @@ while frame<generations:
     
     #plt.imshow(countPlot, cmap='hot', interpolation='none', norm=mpl.colors.Normalize(vmin=0, vmax=100))
     #plt.savefig(f'./out/heatmap-3frames/heatmap-{str(frame)}.png') #Record into file
-    print(frame)
+    #print(frame)
 
 #mlab.contour3d(threeDArray.astype(np.int32)) # a window would pop up
 #mlab.savefig('./out/3dmodel.obj')
